@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/login.js" defer></script>
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4"></div>
+
+        <div class="col-sm-4">
+          <hr />
+          <a class="btn btn-warning" href="index.html">Главная страница</a>
+          <hr />
+          <h2>Войти в аккаунт</h2>
+          <hr />
+          <div
+            class="alert alert-danger"
+            id="login-error-alert"
+            style="display: none"
+          ></div>
+
+          <div
+            class="alert alert-success"
+            id="login-success-alert"
+            style="display: none"
+          ></div>
+
+          <form action="" class="was-validated" onsubmit="onLogin(event)">
+            
+            <div class="form-group">
+              <label for="username">Имя пользователя:</label>
+              <input type="text" class="form-control" id="username" />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Пароль:</label>
+              <input type="password" class="form-control" id="password" />
+            </div>
+
+            <button type="submit" class="btn btn-success">
+              Войти в аккаунт
+            </button>
+
+            <hr />
+            <span>У вас нет аккаунта?</span>
+            <a href="create-account.html" class="btn btn-primary"
+              >Создать аккаунт</a
+            >
+          </form>
+        </div>
+
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+  </body>
+</html>
+

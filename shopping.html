@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Shopping</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="js/shopping.js" defer></script>
+  <link rel="stylesheet" href="css/shopping.css" />
+</head>
+
+<body>
+  <div class="container-fluid">
+    <hr />
+    <div class="row">
+      <div class="col-sm-12">
+        <a class="btn btn-warning" href="index.html">Главная страница</a>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-sm-3">
+        <input id="category-search-input" type="search" class="form-control" placeholder="Поиск"
+          oninput="searchCategory(this)" /><br />
+        <div id="computer-categories-div"></div>
+      </div>
+      <div class="col-sm-9">
+        <div id="computers-loading">
+          <div class="spinner-border"></div>
+        </div>
+        <div id="computers-div"></div>
+        <div id="computers-loading-next">
+          <div class="spinner-border"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button style="display: none;" type="button" class="btn btn-primary" id="open-basket-button" onclick="onOpenBasket()">
+  Корзина <span id="basket-computer-count" class="badge badge-light">0</span>
+  </button>
+
+  <div id="computer-details-modal">
+    <div id="computer-details-modal-content">
+      <h2 style="text-align: center">Детальная информация о компьютере</h2>
+      <div id="computer-modal-image-container"></div>
+      <div id="computer-modal-name"></div>
+      <div id="computer-modal-description">Описание</div>
+      <div id="computer-modal-price">Цена</div>
+      <div id="computer-modal-phone">Телефон</div>
+      <div id="computer-modal-new">Новый</div>
+      <div id="computer-modal-ram">Оперативная память</div>
+      <div id="computer-modal-cpu">CPU</div>
+      <div id="computer-modal-drive">Постоянная память</div>
+      <div id="computer-modal-drive-type">Тип постоянной памяти</div>
+      <div id="computer-modal-os">Операционная система</div>
+      <div id="computer-modal-video-card">Видео карта</div>
+    </div>
+  </div>
+
+  <div id="basket-modal">
+    <div id="basket-modal-content" style="overflow-x: auto">
+      <div style="overflow: auto; margin-bottom: 5px">
+        <span id="basket-modal-close-button">x</span>
+      </div>
+      <h1 style="text-align: center">Корзина</h1>
+      <table class="basket-table table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Изображение</th>
+
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Общая цена</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="basket-computers-table-body"></tbody>
+      </table>
+
+      <div style="overflow: auto">
+        <span id="basket-total-price">Общая цена:
+          <span id="basket-total-price-content">0</span> AZN</span>
+        <button onclick="clearBasket()" id="clear-basket-button" class="btn btn-danger">
+          Очистить корзину
+        </button>
+        <button onclick="confirmOrder()" id="confirm-order-button" class="btn btn-success">
+        Подтвердить корзину
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirm-order-modal">
+    <div id="confirm-order-modal-content">
+      <div style="overflow: auto; margin-bottom: 5px">
+        <span id="confirm-order-modal-close-button">x</span>
+      </div>
+      <h1 style="text-align: center">Пишите контактную информацию</h1>
+      <div id="confirm-order-modal-form-div">
+        <form id="confirm-order-modal-form" action="" class="was-validated" onsubmit="onOrderSubmit(event)">
+          <div class="form-group">
+            <label for="customer-name">Имя:</label>
+            <input type="text" class="form-control" id="customer-name" placeholder="Пишите имя" name="customer-name"
+              required minlength="2" maxlength="30" />
+            <div class="valid-feedback">Верно</div>
+            <div class="invalid-feedback">
+              Не оставляйте это поле пустым. Может содержать минимум 2 и максимум 30 символов.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-address">Адрес:</label>
+            <input type="text" class="form-control" id="customer-address" placeholder="Пишите ваш адрес"
+              name="customer-address" required maxlength="300" />
+            <div class="valid-feedback">Верно</div>
+            <div class="invalid-feedback">Не оставляйте пустым</div>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-phone">Телефон:</label>
+            <input type="text" class="form-control" id="customer-phone" placeholder="Пишите ваши контакты"
+              name="customer-phone" required pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" />
+            <div class="valid-feedback">Верно</div>
+            <div class="invalid-feedback">
+              Телефон написан не в правильном формате. Должно быть (000-000-0000) в этом формате
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-email">Email:</label>
+            <input type="text" class="form-control" id="customer-email" placeholder="Пишите ваш еmail"
+              name="customer-email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+            <div class="valid-feedback">Верно</div>
+            <div class="invalid-feedback">
+              Email написан не в правильном формате
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-order-note">Заметка:</label>
+            <input type="text" class="form-control" id="customer-order-note" placeholder="Можете добавить заметку"
+              name="customer-order-note" maxlength="300" />
+            <div class="valid-feedback">Верно</div>
+            <div class="invalid-feedback">Не оставляйте пустым</div>
+          </div>
+
+          <div class="form-group form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" name="confirmation" required />
+              Достоверность информации подтверждаю
+              <div class="valid-feedback">Вы подтвердили</div>
+              <div class="invalid-feedback">Должны подтверждать</div>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="fixed-elements"></div>
+
+  <input type="text" class="form-control" oninput="onSearchInput(this)" onchange="onSearchChange(this)"
+    onkeydown="onSearchKeyDown(event)" id="computer-search-input" placeholder="Поиск" />
+</body>
+
+</html>

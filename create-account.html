@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Create-account</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/create-account.js" defer></script>
+    <link rel="stylesheet" href="css/create-account.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4"></div>
+
+        <div class="col-sm-4">
+          <hr />
+          <a class="btn btn-warning" href="index.html">Главная страница</a>
+          <hr />
+          <h2>Создать аккаунт</h2>
+          <hr />
+
+          <div
+            class="alert alert-danger"
+            id="user-exists-error-alert"
+            style="display: none"
+          ></div>
+
+          <div
+            class="alert alert-success"
+            id="user-created-alert"
+            style="display: none"
+          ></div>
+
+          <form
+            action=""
+            class="was-validated"
+            onsubmit="onCreateAccount(event)"
+          >
+            <div class="form-group">
+              <label for="user-full-name">Имя:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="user-full-name"
+                required
+                minlength="2"
+                maxlength="30"
+              />
+              <div class="valid-feedback">Верно</div>
+              <div class="invalid-feedback">
+                Не оставляйте это поле пустым. Может содержать минимум 2 и максимум 30 символов.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="user-phone">Телефон:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="user-phone"
+                required
+                pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"
+              />
+              <div class="valid-feedback">Верно</div>
+              <div class="invalid-feedback">
+                Телефон написан не в правильном формате. Должно быть (000-000-0000) в этом формате
+             
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="username">Имя пользователя:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                required
+                minlength="2"
+                maxlength="30"
+              />
+              <div class="valid-feedback">Верно</div>
+              <div class="invalid-feedback">
+                Не оставляйте это поле пустым. Может содержать минимум 2 и максимум 30 символов.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Пароль:</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                required
+                minlength="2"
+                maxlength="30"
+              />
+              <div class="valid-feedback">Верно</div>
+              <div class="invalid-feedback">
+                Не оставляйте это поле пустым. Может содержать минимум 2 и максимум 30 символов.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Создать аккаунт</button>
+            <hr />
+            <span>У вас уже есть аккаунт?</span>
+            <a href="login.html" class="btn btn-primary">Войти в аккаунт</a>
+          </form>
+        </div>
+
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+  </body>
+</html>
